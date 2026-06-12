@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>んこんこゲーム / NKO Game</title>
+<style>
+  :root {
+    --bg: #17130f;
+    --panel: #251d18;
+    --panel2: #100d0b;
+    --text: #fff3df;
+    --muted: #ccbba2;
+    --gold: #ffcf33;
+    --blue: #5865f2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #3a291d 0%, var(--bg) 55%, #080605 100%);
+    color: var(--text);
+    font-family: "Courier New", "Yu Gothic", "Hiragino Sans", monospace;
+    display: flex;
+    justify-content: center;
+    padding: 18px;
+  }
+  main {
+    width: min(940px, 100%);
+    border: 4px dashed #9b7b70;
+    border-radius: 18px;
+    background: linear-gradient(180deg, var(--panel), #18120f);
+    padding: clamp(18px, 4vw, 34px);
+    box-shadow: 0 18px 48px rgba(0,0,0,.45);
+  }
+  .hero {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  h1 {
+    margin: 0;
+    color: var(--gold);
+    font-size: clamp(31px, 8vw, 62px);
+    line-height: 1.05;
+    text-shadow: 0 3px 0 rgba(0,0,0,.5);
+  }
+  .lead {
+    margin: 0;
+    color: #f2ddbf;
+    font-size: clamp(16px, 3.2vw, 22px);
+    line-height: 1.55;
+  }
+  .poop-mark {
+    width: min(280px, 72vw);
+    height: 180px;
+    margin: 10px auto 2px;
+    position: relative;
+    filter: drop-shadow(0 10px 0 #3b2417);
+  }
+  .poop-mark::before,
+  .poop-mark::after,
+  .poop-base {
+    content: "";
+    position: absolute;
+    display: block;
+  }
+  .poop-base {
+    width: 100%;
+    height: 76%;
+    left: 0;
+    bottom: 0;
+    border-radius: 50% 50% 30% 30% / 42% 42% 24% 24%;
+    background: radial-gradient(ellipse at 45% 20%, #a86a42 0%, #7b472d 62%, #603721 100%);
+  }
+  .poop-mark::before {
+    width: 78%;
+    height: 54%;
+    left: 10%;
+    top: 28px;
+    border-radius: 55% 45% 48% 42%;
+    background: linear-gradient(160deg, #a76d45, #7c492e);
+    transform: rotate(-5deg);
+  }
+  .poop-mark::after {
+    width: 43%;
+    height: 36%;
+    left: 44%;
+    top: 0;
+    border-radius: 62% 38% 55% 45%;
+    background: linear-gradient(155deg, #bd8252, #95603d);
+    transform: rotate(11deg);
+  }
+  .poop-text {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    z-index: 2;
+    font-size: 32px;
+    font-weight: 900;
+    text-shadow: 0 3px 0 rgba(0,0,0,.42);
+    padding-top: 42px;
+  }
+  .sections {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  section {
+    background: var(--panel2);
+    border: 1px solid #463629;
+    border-left: 6px solid var(--gold);
+    border-radius: 12px;
+    padding: 18px;
+  }
+  section.english { border-left-color: var(--blue); }
+  h2 {
+    margin: 0 0 10px;
+    color: #fff0a8;
+    font-size: 22px;
+  }
+  .english h2 { color: #dfe3ff; }
+  ol {
+    margin: 10px 0 0;
+    padding-left: 1.35em;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .start {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  a {
+    min-height: 76px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: #fff6d6;
+    background: linear-gradient(180deg, #8a6721, #4d3514);
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    padding: 13px;
+    font-weight: 900;
+    box-shadow: inset 0 -6px 0 rgba(0,0,0,.22), 0 5px 0 #1b1208;
+  }
+  a.english-link {
+    color: #eef0ff;
+    background: linear-gradient(180deg, #4f59b8, #242b6f);
+    border-color: #8c96ff;
+  }
+  a.discord-link {
+    color: #eff2ff;
+    background: linear-gradient(180deg, #5865f2, #2f348f);
+    border-color: #aeb5ff;
+  }
+  .note {
+    margin: 16px 0 0;
+    color: #b9a992;
+    line-height: 1.55;
+    font-size: 14px;
+  }
+  @media (max-width: 760px) {
+    .sections, .start { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="hero">
+    <h1>💩 んこんこゲーム 💩</h1>
+    <p class="lead">AIと遊べる、うんちゆ回避ゲーム。</p>
+    <div class="poop-mark" aria-hidden="true">
+      <span class="poop-base"></span>
+      <span class="poop-text">NKO</span>
+    </div>
+  </div>
+
+  <div class="sections">
+    <section>
+      <h2>ルール</h2>
+      <ol>
+        <li>AIを1人以上集めます</li>
+        <li>ゲームルールをAIへ貼ります</li>
+        <li>AIの返答を入力します</li>
+        <li>「うんちゆ！」を言わされたら負けです</li>
+      </ol>
+    </section>
+
+    <section class="english">
+      <h2>Rules</h2>
+      <ol>
+        <li>Gather at least one AI player</li>
+        <li>Paste the game rules to the AI</li>
+        <li>Enter the AI's reply into the game</li>
+        <li>If you are forced to say "UNCHIYU!", you lose</li>
+      </ol>
+    </section>
+  </div>
+
+  <div class="start" aria-label="Game links">
+    <a href="nko_belly_air_joker_v31_public.html">🇯🇵 日本語版</a>
+    <a class="english-link" href="nko_belly_air_joker_v31_english.html">🇺🇸 English Version</a>
+    <a class="discord-link" href="nko_belly_air_joker_v31_discord.html">💬 Discord Version</a>
+  </div>
+
+  <p class="note">
+    Discordで遊ぶ場合は、Discord Versionを開いて「Discord投稿用の短文をコピー」を押し、チャンネルに貼って進行します。
+  </p>
+</main>
+</body>
+</html>
